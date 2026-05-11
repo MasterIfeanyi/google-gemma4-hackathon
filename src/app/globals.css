@@ -11,7 +11,7 @@
   --brand-secondary: #60CDFF;
 
   /* Light Mode — Windows 11 Light */
-  --background: #F3F3F3;
+  --background: #fff;
   --foreground: #1A1A1A;
   --surface: #FFFFFF;
   --surface-alt: #FAFAFA;
@@ -41,7 +41,7 @@
 
 [data-theme="dark"] {
   /* Dark Mode — Windows 11 Dark (Mica-inspired) */
-  --background: #202020;
+  --background: #000;
   --foreground: #FFFFFF;
   --surface: #2C2C2C;
   --surface-alt: #323232;
