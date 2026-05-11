@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { celebrities } from "@/data/celebrities";
+import { dashboard as celebrities } from "@/data/dashboard";
 import NavbarLayout from "@/components/NavbarLayout";
 import Image from "next/image";
 
@@ -14,7 +14,7 @@ export default function Home() {
     const router = useRouter();
 
     const filtered = celebrities.filter((c) => {
-        return selectedCategory === "All" || c.category === selectedCategory;
+        return selectedCategory === "All" || c.categories.includes(selectedCategory);
     });
 
     const handleSelect = (id) => {
@@ -85,12 +85,12 @@ export default function Home() {
                                 </div>
 
                                 {/* Name overlay */}
-                                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 via-black/30 to-transparent p-3">
+                                <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 via-black/30 to-transparent px-3 py-0">
                                     <p className="text-white text-xs font-semibold leading-tight truncate">
                                         {celebrity.name}
                                     </p>
                                     <p className="text-white/50 text-[10px] uppercase tracking-wider mt-0.5">
-                                        {celebrity.category}
+                                        {celebrity.categories.join(" · ")}
                                     </p>
                                 </div>
                             </div>
