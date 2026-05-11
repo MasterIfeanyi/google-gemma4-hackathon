@@ -23,7 +23,7 @@ export default function Navbar() {
     const pathname = usePathname();
 
     return (
-        <nav className="sticky top-0 z-50 bg-background backdrop-blur-md border-b border-border px-8 py-4 flex items-center justify-between">
+        <nav className="sticky top-0 z-50 bg-background backdrop-blur-md border-b border-border px-8 py-1 flex items-center justify-between">
             <div className="container mx-auto px-4 sm:px-6">
                 <div className="flex h-16 items-center justify-between">
 
