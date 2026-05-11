@@ -46,7 +46,7 @@ export const dashboard = [
     name: "Bill Gates",
     categories: ["Billionaire", "Innovator"],
     description: "Co-founder of Microsoft",
-    image: "/images/bill_gates.jpg",
+    image: "/images/william_gates.jpg",
   },
   {
     id: "nelson-mandela",
@@ -74,13 +74,13 @@ export const dashboard = [
     name: "Steve Harvey",
     categories: ["Celebrity"],
     description: "Comedian, TV host & author",
-    image: "/images/harvey.jpg",
+    image: "/images/steve_harvey.jpg",
   },
   {
     id: "angela-merkel",
     name: "Angela Merkel",
     categories: ["Historical"],
     description: "Former Chancellor of Germany",
-    image: "/images/merkel.jpg",
+    image: "/images/Angela_markel.jpg",
   },
 ];
