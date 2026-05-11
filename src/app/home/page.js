@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import { celebrities } from "@/data/celebrities.js"
-import Image from "next/image";
+import Link from "next/link";
 import CarouselCard from "@/components/CarouselCard";
 import NavbarLayout from "@/components/NavbarLayout";
 import { FaInfoCircle } from "react-icons/fa";
@@ -20,7 +20,6 @@ export default function LandingPage() {
         <NavbarLayout>
 
             <main className="min-h-screen bg-background text-foreground flex flex-col">
-
 
                 {/* Hero */}
                 <section className="flex flex-col items-center text-center px-6 pt-24 pb-0">
@@ -47,15 +46,13 @@ export default function LandingPage() {
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="flex items-center gap-3 mb-20">
-                        <Button
-                            variant="primary"
-                            size="medium"
-                            className="rounded-sm border border-primary"
-                            onClick={() => router.push("/dashboard")}
+                    <div className="flex items-center mb-20">
+                        <Link
+                            href="/dashboard"
+                            className="rounded-sm border border-primary px-4 py-2 text-sm font-medium bg-primary text-white hover:bg-primary hover:text-brand transition-colors"
                         >
                             Start a conversation
-                        </Button>
+                        </Link>
                     </div>
                 </section>
 
