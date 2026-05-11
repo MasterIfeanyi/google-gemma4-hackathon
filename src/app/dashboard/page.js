@@ -86,10 +86,10 @@ export default function Home() {
 
                                 {/* Name overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 via-black/30 to-transparent px-3 py-0">
-                                    <p className="text-white text-xs font-semibold leading-tight truncate">
+                                    <p style={{color: "white"}} className="text-xs font-semibold leading-tight truncate">
                                         {celebrity.name}
                                     </p>
-                                    <p className="text-white/50 text-[10px] uppercase tracking-wider mt-0.5">
+                                    <p style={{color: "white"}} className="text-[10px] uppercase tracking-wider mt-0.5">
                                         {celebrity.categories.join(" · ")}
                                     </p>
                                 </div>
@@ -106,7 +106,7 @@ export default function Home() {
                             Do not see who you are looking for?
                         </p>
                         <p className="text-sm text-muted-foreground mb-5">
-                            Type any name below — a historical figure, billionaire, athlete, or public figure — and start a conversation.
+                            Type any name below a historical figure, billionaire, athlete, or public figure and start a conversation.
                         </p>
                         <form onSubmit={handleCustomSubmit} className="flex gap-3">
                             <input
