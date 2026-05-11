@@ -87,7 +87,7 @@ export default function LandingPage() {
                     <div className="flex items-start gap-3 max-w-xl w-full border border-primary/30 bg-primary/5 rounded-sm px-5 py-4">
                         <FaInfoCircle className="w-4 h-4 mt-0.5 shrink-0 text-primary" aria-hidden="true" />
                         <p className="text-xs text-muted-foreground leading-relaxed">
-                            <span className="font-semibold text-foreground">AI Disclaimer. </span>
+                            <span className="font-semibold text-foreground">Disclaimer. </span>
                             Buddy simulates conversations based on publicly available information.
                             Responses are AI-generated and do not represent the actual views,
                             opinions, or statements of any individual, living or deceased.

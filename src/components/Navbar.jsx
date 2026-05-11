@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 // import { usePathname } from "next/navigation";
-// import Image from "next/image";
+import Image from "next/image";
 import ThemeToggle from "./ThemeToggle";
 
 
@@ -18,12 +18,12 @@ export default function Navbar() {
 
                     {/* Logo */}
                     <Link href="/" className="flex gap-1 items-center">
-                        {/* <Image
-                            src="/images/pix.png"
+                        <Image
+                            src="/images/cache.png"
                             alt="Story Logo"
                             width={40}
                             height={40}
-                        /> */}
+                        />
                         <span className="text-lg font-bold tracking-tight text-foreground">
                             Buddy<span className="text-primary">.</span>
                         </span>
