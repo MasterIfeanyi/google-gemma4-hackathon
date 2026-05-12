@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter, useParams } from "next/navigation";
-import { dashboard as celebrities } from "@/data/dashboard";
 import Image from "next/image"
 import Link from "next/link"
 import { FiClock } from "react-icons/fi";

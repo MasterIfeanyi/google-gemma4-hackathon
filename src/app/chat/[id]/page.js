@@ -1,20 +1,15 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Image from "next/image"
 import { dashboard as celebrities } from "@/data/dashboard";
-import Button from "@/components/ui/Button";
-import Input from "@/components/ui/Input";
-import TextArea from "@/components/ui/TextArea";
-import { FaAngleLeft } from "react-icons/fa6";
 import ChatInput from "@/components/ui/ChatInput";
 import { saveSession, getSession } from "@/utils/chatHistory";
 
 export default function ChatPage() {
     const { id } = useParams();
     const searchParams = useSearchParams();
-    const router = useRouter();
     const sessionId = searchParams.get("session") || "default";
 
     const customName = searchParams.get("name");

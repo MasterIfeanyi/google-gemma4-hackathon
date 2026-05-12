@@ -5,8 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { dashboard as celebrities } from "@/data/dashboard";
 import { getSessionsForCelebrity, deleteSession } from "@/utils/chatHistory";
 import { FaTrashAlt } from 'react-icons/fa';
-import Image from "next/image";
-import Button from "@/components/ui/Button";
+
 
 // Same function as in layout.js
 const generateSessionId = () => Math.random().toString(36).substring(2, 10);
