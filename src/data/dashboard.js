@@ -1,4 +1,5 @@
 export const dashboard = [
+  // --- Your existing 12 ---
   {
     id: "elon-musk",
     name: "Elon Musk",
@@ -82,5 +83,98 @@ export const dashboard = [
     categories: ["Historical"],
     description: "Former Chancellor of Germany",
     image: "/images/Angela_markel.jpg",
+  },
+
+  // --- New entries (hidden from "All", visible in their categories) ---
+  {
+    id: "lebron-james",
+    name: "LeBron James",
+    categories: ["Athlete", "Billionaire"],
+    description: "NBA All-time leading scorer",
+    image: "/images/lebron_james.jpg",
+  },
+  {
+    id: "serena-williams",
+    name: "Serena Williams",
+    categories: ["Athlete"],
+    description: "23x Grand Slam champion",
+    image: "/images/serena.jpg",
+  },
+  {
+    id: "usain-bolt",
+    name: "Usain Bolt",
+    categories: ["Athlete"],
+    description: "World's fastest man",
+    image: "/images/bolt_cache.jpg",
+  },
+  {
+    id: "jeff-bezos",
+    name: "Jeff Bezos",
+    categories: ["Billionaire", "Innovator"],
+    description: "Founder of Amazon",
+    image: "/images/jeff-bezos.jpg",
+  },
+  {
+    id: "mark-zuckerberg",
+    name: "Mark Zuckerberg",
+    categories: ["Billionaire", "Innovator"],
+    description: "CEO of Meta",
+    image: "/images/zuckerberg.jpg",
+  },
+  {
+    id: "sam-altman",
+    name: "Sam Altman",
+    categories: ["Innovator"],
+    description: "CEO of OpenAI",
+    image: "/images/altman.jpg",
+  },
+  {
+    id: "kevin-hart",
+    name: "Kevin Hart",
+    categories: ["Celebrity"],
+    description: "Comedian & actor",
+    image: "/images/kevin.jpg",
+  },
+  {
+    id: "kim-kardashian",
+    name: "Kim Kardashian",
+    categories: ["Celebrity", "Billionaire"],
+    description: "Media personality & entrepreneur",
+    image: "/images/kim_k.jpg",
+  },
+  {
+    id: "will-smith",
+    name: "Will Smith",
+    categories: ["Celebrity", "Artist"],
+    description: "Actor & rapper",
+    image: "/images/will_smith.jpg",
+  },
+  {
+    id: "martin-luther-king",
+    name: "Martin Luther King Jr.",
+    categories: ["Historical"],
+    description: "Civil rights leader",
+    image: "/images/martin_luther_king.jpg",
+  },
+  {
+    id: "cleopatra",
+    name: "Cleopatra",
+    categories: ["Historical"],
+    description: "Last active ruler of the Ptolemaic Kingdom",
+    image: "/images/cleopatra.jpg",
+  },
+  {
+    id: "drake",
+    name: "Drake",
+    categories: ["Artist", "Celebrity"],
+    description: "Grammy-winning rapper & entrepreneur",
+    image: "/images/drake.jpg",
+  },
+  {
+    id: "taylor-swift",
+    name: "Taylor Swift",
+    categories: ["Artist", "Billionaire"],
+    description: "Record-breaking singer-songwriter",
+    image: "/images/taylor_swift.jpg",
   },
 ];

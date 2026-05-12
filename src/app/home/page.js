@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Button from "@/components/ui/Button";
-import { celebrities } from "@/data/celebrities.js"
+import { dashboard as celebrities } from "@/data/dashboard.js"
 import Link from "next/link";
 import CarouselCard from "@/components/CarouselCard";
 import NavbarLayout from "@/components/NavbarLayout";
@@ -11,7 +10,7 @@ import { FaInfoCircle } from "react-icons/fa";
 
 
 // Duplicate for seamless infinite loop
-const doubled = [...celebrities, ...celebrities, ...celebrities];
+const carousel = [...celebrities, ...celebrities];
 
 export default function LandingPage() {
     const router = useRouter();
@@ -49,7 +48,7 @@ export default function LandingPage() {
                     <div className="flex items-center mb-20">
                         <Link
                             href="/dashboard"
-                            className="rounded-sm border border-primary px-4 py-2 text-sm font-medium bg-primary text-white hover:bg-primary hover:text-brand transition-colors"
+                            className="rounded-sm border border-primary px-4 py-2 text-sm font-medium bg-primary text-white hover:bg-primary hover:text-white transition-colors"
                         >
                             Start a conversation
                         </Link>
@@ -70,9 +69,14 @@ export default function LandingPage() {
 
                         <div
                             className="flex gap-5 w-max"
-                            style={{ animation: "buddyScroll 40s linear infinite" }}
+                            style={{
+                                animation: "buddyScroll 40s linear infinite",
+                                willChange: "transform",
+                             }}
+                            onMouseEnter={e => e.currentTarget.style.animationPlayState = "paused"}
+                            onMouseLeave={e => e.currentTarget.style.animationPlayState = "running"}
                         >
-                            {doubled.map((person, i) => (
+                            {carousel.map((person, i) => (
                                 <CarouselCard key={`a-${i}`} person={person} />
                             ))}
                         </div>
@@ -96,7 +100,7 @@ export default function LandingPage() {
                 <style>{`
                     @keyframes buddyScroll {
                     0%   { transform: translateX(0); }
-                    100% { transform: translateX(-33.333%);  }
+                    100% { transform: translateX(-50%);  }
                     }
                 `}</style>
 

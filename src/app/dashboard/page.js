@@ -17,6 +17,8 @@ export default function Home() {
         return selectedCategory === "All" || c.categories.includes(selectedCategory);
     });
 
+    const displayed = selectedCategory === "All" ? filtered.slice(0, 12) : filtered;
+
     const handleSelect = (id) => {
         router.push(`/chat/${id}`);
     };
@@ -41,10 +43,10 @@ export default function Home() {
                             Who do you want to speak with?
                         </p>
                         <h1 className="text-4xl font-semibold tracking-tight text-foreground mb-3">
-                            Select Your Figure
+                            Choose A Public Figure
                         </h1>
                         <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
-                            Choose anyone below to begin a conversation. The AI will assume their personality and only answer questions relevant to their life, work, and achievements.
+                            Select anyone below to begin a conversation. The AI will assume their personality and only answer questions relevant to their life, work, and achievements.
                         </p>
                     </div>
 
@@ -66,7 +68,7 @@ export default function Home() {
 
                     {/* Fighter Grid */}
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-14">
-                        {filtered.map((celebrity) => (
+                        {displayed.map((celebrity) => (
                             <div
                                 key={celebrity.id}
                                 onClick={() => handleSelect(celebrity.id)}
