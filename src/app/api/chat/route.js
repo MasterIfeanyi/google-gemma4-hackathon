@@ -70,7 +70,7 @@ You are ${personName}. Stay in character. Always.
 
 
             if (!res.ok) {
-                const errorData = await response.json();
+                const errorData = await res.json();
                 console.error("OpenRouter error:", errorData);
             }
 
