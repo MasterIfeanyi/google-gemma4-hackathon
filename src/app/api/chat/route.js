@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  try {
-    const { personName, personDescription, messages } = await req.json();
+    try {
+        const { personName, personDescription, messages } = await req.json();
 
-    if (!personName || !messages || messages.length === 0) {
-      return NextResponse.json(
-        { error: "Missing required fields." },
-        { status: 400 }
-      );
-    }
+        if (!personName || !messages || messages.length === 0) {
+            return NextResponse.json(
+                { error: "Missing required fields." },
+                { status: 400 }
+            );
+        }
 
-    // Build the system prompt — this is what locks Gemma 4 into the personality
-    const systemPrompt = `
+        // Build the system prompt — this is what locks Gemma 4 into the personality
+        const systemPrompt = `
 You are ${personName} — ${personDescription}.
 
 You must embody ${personName} completely and speak strictly in first person as them.
@@ -29,71 +29,71 @@ STRICT RULES YOU MUST NEVER BREAK:
 You are ${personName}. Stay in character. Always.
     `.trim();
 
-    // Build the message array for OpenRouter
-    // OpenRouter with Gemma 4 uses the standard messages format
-    // We prepend a user/assistant pair to inject the system prompt
-    // because Gemma 4 does not support a system role directly
-    const formattedMessages = [
-      {
-        role: "user",
-        content: systemPrompt,
-      },
-      {
-        role: "assistant",
-        content: `Understood. I am ${personName}. I will only speak about my own life, work, and experiences. Ask me anything about who I am.`,
-      },
-      // Full conversation history — this is what maintains memory
-      ...messages.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-      })),
-    ];
+        // Build the message array for OpenRouter
+        // OpenRouter with Gemma 4 uses the standard messages format
+        // We prepend a user/assistant pair to inject the system prompt
+        // because Gemma 4 does not support a system role directly
+        const formattedMessages = [
+            {
+                role: "user",
+                content: systemPrompt,
+            },
+            {
+                role: "assistant",
+                content: `Understood. I am ${personName}. I will only speak about my own life, work, and experiences. Ask me anything about who I am.`,
+            },
+            // Full conversation history — this is what maintains memory
+            ...messages.map((msg) => ({
+                role: msg.role,
+                content: msg.content,
+            })),
+        ];
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://buddy.app",
-          "X-Title": "Buddy",
-        },
-        body: JSON.stringify({
-          model: "google/gemma-4-26b-a4b-it:free",
-          messages: formattedMessages,
-          temperature: 0.8,
-          max_tokens: 1024,
-        }),
-      }
-    );
+        const response = await fetch(
+            "https://openrouter.ai/api/v1/chat/completions",
+            {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://buddy.app",
+                    "X-Title": "Buddy",
+                },
+                body: JSON.stringify({
+                    model: "google/gemma-4-26b-a4b-it:free",
+                    messages: formattedMessages,
+                    temperature: 0.8,
+                    max_tokens: 1024,
+                }),
+            }
+        );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("OpenRouter error:", errorData);
-      return NextResponse.json(
-        { error: "Failed to get response from Gemma 4." },
-        { status: 500 }
-      );
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("OpenRouter error:", errorData);
+            return NextResponse.json(
+                { error: "Failed to get response from Gemma 4." },
+                { status: 500 }
+            );
+        }
+
+        const data = await response.json();
+        const reply = data.choices?.[0]?.message?.content;
+
+        if (!reply) {
+            return NextResponse.json(
+                { error: "Empty response from model." },
+                { status: 500 }
+            );
+        }
+
+        return NextResponse.json({ reply });
+
+    } catch (err) {
+        console.error("Chat API error:", err);
+        return NextResponse.json(
+            { error: "Internal server error.", detail: err.message },
+            { status: 500 }
+        );
     }
-
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content;
-
-    if (!reply) {
-      return NextResponse.json(
-        { error: "Empty response from model." },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({ reply });
-
-  } catch (err) {
-    console.error("Chat API error:", err);
-    return NextResponse.json(
-      { error: "Internal server error." },
-      { status: 500 }
-    );
-  }
 }

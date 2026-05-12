@@ -14,6 +14,7 @@ export default function ChatPage() {
     const { id } = useParams();
     const searchParams = useSearchParams();
     const router = useRouter();
+    const sessionId = searchParams.get("session") || "default";
 
     const customName = searchParams.get("name");
 
@@ -39,6 +40,16 @@ export default function ChatPage() {
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, loading]);
+
+    // Reset messages when session changes
+    useEffect(() => {
+        setMessages([
+            {
+                role: "assistant",
+                content: `Hello. I'm ${person.name}. Ask me anything about my life, career, or work — I'm here to talk.`,
+            },
+        ]);
+    }, [sessionId]);
 
     const sendMessage = async () => {
         const trimmed = input.trim();
