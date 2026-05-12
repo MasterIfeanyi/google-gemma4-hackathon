@@ -9,6 +9,7 @@ import Input from "@/components/ui/Input";
 import TextArea from "@/components/ui/TextArea";
 import { FaAngleLeft } from "react-icons/fa6";
 import ChatInput from "@/components/ui/ChatInput";
+import { saveSession, getSession } from "@/utils/chatHistory";
 
 export default function ChatPage() {
     const { id } = useParams();
@@ -50,6 +51,28 @@ export default function ChatPage() {
             },
         ]);
     }, [sessionId]);
+
+    // Save conversation to localStorage every time messages update
+    useEffect(() => {
+        if (messages.length <= 1) return; // Don't save the initial greeting alone
+        saveSession(id, sessionId, messages, person.name);
+    }, [messages]);
+
+
+    // Load existing session from localStorage if it exists
+useEffect(() => {
+  const existing = getSession(id, sessionId);
+  if (existing && existing.messages?.length > 0) {
+    setMessages(existing.messages);
+  } else {
+    setMessages([
+      {
+        role: "assistant",
+        content: `Hello. I'm ${person.name}. Ask me anything about my life, career, or work — I'm here to talk.`,
+      },
+    ]);
+  }
+}, [sessionId]);
 
     const sendMessage = async () => {
         const trimmed = input.trim();

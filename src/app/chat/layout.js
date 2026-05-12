@@ -3,6 +3,7 @@
 import { useRouter, useParams } from "next/navigation";
 import { dashboard as celebrities } from "@/data/dashboard";
 import Image from "next/image"
+import Link from "next/link"
 import { FiClock } from "react-icons/fi";
 import { FaUser } from "react-icons/fa";
 
@@ -34,11 +35,7 @@ export default function ChatLayout({ children }) {
                 <div className="flex flex-col items-center gap-3">
 
                     {/* Buddy logo mark */}
-                    <button
-                        onClick={handleNewChat}
-                        title="New chat"
-                        className="w-8 h-8 rounded-sm overflow-hidden hover:opacity-80 transition cursor-pointer mb-2"
-                    >
+                    <Link href="/dashboard">
                         <Image
                             src="/images/cache.png"
                             alt="Buddy"
@@ -46,7 +43,7 @@ export default function ChatLayout({ children }) {
                             height={32}
                             className="w-full h-full object-cover"
                         />
-                    </button>
+                    </Link>
 
                     <span className="w-6 h-px bg-border" />
 
@@ -64,7 +61,7 @@ export default function ChatLayout({ children }) {
                     {/* History */}
                     <SidebarButton
                         title="Chat history"
-                        onClick={() => { }}
+                        onClick={() => router.push(`/chat/${id}/history`)}
                         icon={
                             <FiClock size={16} />
                         }
@@ -84,9 +81,9 @@ export default function ChatLayout({ children }) {
             </aside>
 
             {/* Main content */}
-            <div className="flex-1 overflow-hidden">
+            <main className="flex-1 overflow-hidden">
                 {children}
-            </div>
+            </main>
 
         </div>
     );

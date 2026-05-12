@@ -8,8 +8,8 @@ const nunito = Nunito({
 });
 
 export const metadata = {
-  title: "StoryMind",
-  description: "Stories & Summaries, powered by AI",
+  title: "Buddy",
+  description: "Celeb Chats, powered by AI",
 };
 
 export default function RootLayout({ children }) {
