@@ -23,11 +23,24 @@ export default function Home() {
         router.push(`/chat/${id}`);
     };
 
-    const handleCustomSubmit = (e) => {
+    const handleCustomSubmit = async (e) => {
         e.preventDefault();
         if (!customName.trim()) return;
-        const id = customName.trim().toLowerCase().replace(/\s+/g, "-");
-        router.push(`/chat/${id}?name=${encodeURIComponent(customName.trim())}`);
+
+        // Ask Wikipedia for the canonical full name before building the URL
+        let finalName = customName.trim();
+        try {
+            const res = await fetch(`/api/resolve-person?name=${encodeURIComponent(finalName)}`);
+            const data = await res.json();
+            console.log("Resolved:", data);
+            finalName = data.resolvedName || finalName;
+        } catch {
+            // If it fails, just use what the user typed -- no crash
+            console.error("Resolve failed:", err);
+        }
+
+        const id = finalName.toLowerCase().replace(/\s+/g, "-");
+        router.push(`/chat/${id}?name=${encodeURIComponent(finalName)}`);
     };
 
     return (
@@ -57,8 +70,8 @@ export default function Home() {
                                 key={cat}
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`px-4 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-widest border transition-all duration-150 cursor-pointer ${selectedCategory === cat
-                                        ? "bg-primary text-primary-foreground border-primary"
-                                        : "bg-surface text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
+                                    ? "bg-primary text-primary-foreground border-primary"
+                                    : "bg-surface text-muted-foreground border-border hover:border-primary/40 hover:text-foreground"
                                     }`}
                             >
                                 {cat}
@@ -88,10 +101,10 @@ export default function Home() {
 
                                 {/* Name overlay */}
                                 <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 via-black/30 to-transparent px-3 py-0">
-                                    <p style={{color: "white"}} className="text-xs font-semibold leading-tight truncate">
+                                    <p style={{ color: "white" }} className="text-xs font-semibold leading-tight truncate">
                                         {celebrity.name}
                                     </p>
-                                    <p style={{color: "white"}} className="text-[10px] uppercase tracking-wider mt-0.5">
+                                    <p style={{ color: "white" }} className="text-[10px] uppercase tracking-wider mt-0.5">
                                         {celebrity.categories.join(" · ")}
                                     </p>
                                 </div>
