@@ -28,6 +28,10 @@ export default function ChatPage() {
         image: null,
     };
 
+
+    const [resolvedImage, setResolvedImage] = useState(person.image || null);
+
+
     const [messages, setMessages] = useState([
         {
             role: "assistant",
@@ -73,6 +77,18 @@ export default function ChatPage() {
             ]);
         }
     }, [sessionId]);
+
+    useEffect(() => {
+        // Only fetch from Wikipedia if this is a custom person with no image
+        if (person.image) return;
+
+        fetch(`/api/person-image?name=${encodeURIComponent(person.name)}`)
+            .then((r) => r.json())
+            .then((data) => {
+                if (data.image) setResolvedImage(data.image);
+            })
+            .catch(() => { }); // silently fail -- fallback to the initial letter avatar
+    }, [person.name]);
 
     const sendMessage = async () => {
         const trimmed = input.trim();
@@ -139,11 +155,11 @@ export default function ChatPage() {
                             {/* AI avatar — left side */}
                             {msg.role === "assistant" && (
                                 <div className="shrink-0 w-8 h-8 rounded-full overflow-hidden border border-border mb-0.5">
-                                    {person.image ? (
+                                    {resolvedImage  ? (
                                         <Image
                                             width={80}
                                             height={80}
-                                            src={person.image}
+                                            src={resolvedImage }
                                             alt={person.name}
                                             className="w-full h-full object-cover object-top"
                                         />
