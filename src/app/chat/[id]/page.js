@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import TextArea from "@/components/ui/TextArea";
 import { FaAngleLeft } from "react-icons/fa6";
+import ChatInput from "@/components/ui/ChatInput";
 
 export default function ChatPage() {
     const { id } = useParams();
@@ -91,7 +92,7 @@ export default function ChatPage() {
         <div className="flex flex-col h-screen bg-background overflow-hidden">
 
             {/* Top Nav */}
-            
+
 
             {/* Messages area */}
             <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
@@ -180,36 +181,17 @@ export default function ChatPage() {
             </div>
 
             {/* Input bar */}
-            <div
-                className="shrink-0 px-4 py-0 gap-0"
-            >
-                <div className="max-w-3xl mx-auto flex items-center gap-3">
-                    <div className="flex-1">
-                        <TextArea
-                            id="chat-input"
-                            placeholder={`Ask ${person.name} something...`}
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={handleKeyDown}
-                            className="rounded-sm border-border focus:border-primary"
-                        />
-                    </div>
-                    <Button
-                        variant="primary"
-                        size="medium"
-                        className="rounded-sm px-5 shrink-0"
-                        onClick={sendMessage}
-                        loading={loading}
-                        disabled={!input.trim() || loading}
-                    >
-                        Send
-                    </Button>
-                </div>
-                <p className="text-center text-[11px] text-muted-foreground max-w-3xl mx-auto">
-                    Only questions about {person.name} life, career, and achievements will be answered.
-                </p>
-            </div>
+            <ChatInput
+                value={input}
+                onChange={setInput}
+                onSend={sendMessage}
+                loading={loading}
+                placeholder={`Ask ${person.name} something...`}
+            />
 
+            <p className="text-center text-[11px] text-muted-foreground max-w-3xl mx-auto">
+                Only questions about {person.name} life, career, and achievements will be answered.
+            </p>
         </div>
     );
 }
