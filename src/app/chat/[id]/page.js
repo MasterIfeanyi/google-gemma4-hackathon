@@ -60,19 +60,19 @@ export default function ChatPage() {
 
 
     // Load existing session from localStorage if it exists
-useEffect(() => {
-  const existing = getSession(id, sessionId);
-  if (existing && existing.messages?.length > 0) {
-    setMessages(existing.messages);
-  } else {
-    setMessages([
-      {
-        role: "assistant",
-        content: `Hello. I'm ${person.name}. Ask me anything about my life, career, or work — I'm here to talk.`,
-      },
-    ]);
-  }
-}, [sessionId]);
+    useEffect(() => {
+        const existing = getSession(id, sessionId);
+        if (existing && existing.messages?.length > 0) {
+            setMessages(existing.messages);
+        } else {
+            setMessages([
+                {
+                    role: "assistant",
+                    content: `Hello. I'm ${person.name}. Ask me anything about my life, career, or work — I'm here to talk.`,
+                },
+            ]);
+        }
+    }, [sessionId]);
 
     const sendMessage = async () => {
         const trimmed = input.trim();
@@ -92,7 +92,7 @@ useEffect(() => {
                 body: JSON.stringify({
                     personName: person.name,
                     personDescription: person.description,
-                    messages: updatedMessages,
+                    messages: updatedMessages.filter((_, i) => i !== 0),
                 }),
             });
 

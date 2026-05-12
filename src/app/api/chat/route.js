@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { withRetry } from "@/utils/retry";
 
 export async function POST(req) {
     try {
@@ -44,14 +45,14 @@ You are ${personName}. Stay in character. Always.
             },
             // Full conversation history — this is what maintains memory
             ...messages.map((msg) => ({
-                role: msg.role,
+                role: msg.role === "assistant" ? "assistant" : "user",
                 content: msg.content,
             })),
         ];
 
-        const response = await fetch(
-            "https://openrouter.ai/api/v1/chat/completions",
-            {
+        const response = await withRetry( async () => {
+
+           const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
@@ -65,17 +66,17 @@ You are ${personName}. Stay in character. Always.
                     temperature: 0.8,
                     max_tokens: 1024,
                 }),
-            }
-        );
+            })
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("OpenRouter error:", errorData);
-            return NextResponse.json(
-                { error: "Failed to get response from Gemma 4." },
-                { status: 500 }
-            );
-        }
+
+            if (!res.ok) {
+                const errorData = await response.json();
+                console.error("OpenRouter error:", errorData);
+            }
+
+            return res
+        });
+
 
         const data = await response.json();
         const reply = data.choices?.[0]?.message?.content;
