@@ -5,7 +5,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { FiClock } from "react-icons/fi";
 import { FaUser } from "react-icons/fa";
-
+import { PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { useState } from "react";
+import Button from "@/components/ui/Button";
 
 // Generates a short unique session ID
 const generateSessionId = () => Math.random().toString(36).substring(2, 10);
@@ -13,6 +15,7 @@ const generateSessionId = () => Math.random().toString(36).substring(2, 10);
 export default function ChatLayout({ children }) {
     const router = useRouter();
     const { id } = useParams();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const handleNewChat = () => {
         if (!id) return;
@@ -20,14 +23,32 @@ export default function ChatLayout({ children }) {
         // Navigate to the same celebrity but with a fresh session ID
         // This creates a brand new conversation with its own identity
         router.push(`/chat/${id}?session=${newSessionId}`);
+        setSidebarOpen(false);
     };
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+    }
 
     return (
         <div className="flex h-screen bg-background overflow-hidden">
 
+            {/* Mobile overlay -- tap outside to close */}
+            {sidebarOpen && (
+                <div
+                    className="fixed inset-0 z-20 bg-black/40 md:hidden"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
             <aside
-                className="flex flex-col items-center justify-between w-14 h-full bg-surface border-r border-border py-4 shrink-0"
+                className={`
+                    flex flex-col items-center justify-between w-14 h-full bg-surface border-r border-border py-4 shrink-0
+                    fixed z-30 top-0 left-0 transition-transform duration-200
+                    md:relative md:translate-x-0
+                    ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+                `}
                 style={{ boxShadow: "var(--shadow-sm)" }}
             >
                 {/* Top section */}
@@ -81,6 +102,16 @@ export default function ChatLayout({ children }) {
 
             {/* Main content */}
             <main className="flex-1 overflow-hidden">
+                {/* Mobile-only toggle -- invisible on desktop */}
+                <button
+                    onClick={toggleSidebar}
+                    className="md:hidden absolute top-3 left-3 z-10 flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-sm border border-border bg-surface text-muted-foreground hover:text-foreground transition"
+                >
+                    {sidebarOpen
+                        ? <PanelLeftClose size={14} />
+                        : <PanelLeftOpen size={14} />
+                    }
+                </button>
                 {children}
             </main>
 

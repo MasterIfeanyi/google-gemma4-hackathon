@@ -234,7 +234,7 @@ export default function ChatPage() {
                 placeholder={`Ask ${person.name} something...`}
             />
 
-            <p className="text-center text-[11px] text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-center text-[11px] text-muted-foreground max-w-3xl mx-auto px-3">
                 Only questions about {person.name} life, career, and achievements will be answered.
             </p>
         </div>

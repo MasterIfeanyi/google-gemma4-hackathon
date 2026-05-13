@@ -33,7 +33,7 @@ export default function ChatInput({
     };
 
     return (
-        <div className="shrink-0 px-0 py-4">
+        <div className="shrink-0 px-3 py-4">
             <div className="max-w-2xl mx-auto">
                 <div className="relative flex items-end bg-surface border border-border rounded-2xl shadow-sm focus-within:border-primary/60 focus-within:ring-1 focus-within:ring-primary/30 transition-all">
                     <textarea
