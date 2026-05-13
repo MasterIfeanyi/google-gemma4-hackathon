@@ -10,6 +10,7 @@ const categories = ["All", "Billionaire", "Artist", "Historical", "Athlete", "In
 
 export default function Home() {
     const [selectedCategory, setSelectedCategory] = useState("All");
+    const [loadingId, setLoadingId] = useState(null);
     const [customName, setCustomName] = useState("");
     const router = useRouter();
 
@@ -20,6 +21,7 @@ export default function Home() {
     const displayed = selectedCategory === "All" ? filtered.slice(0, 12) : filtered;
 
     const handleSelect = (id) => {
+        setLoadingId(id);
         router.push(`/chat/${id}`);
     };
 
@@ -108,6 +110,13 @@ export default function Home() {
                                         {celebrity.categories.join(" · ")}
                                     </p>
                                 </div>
+
+                                {/* loading spinner */}
+                                {loadingId === celebrity.id && (
+                                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
