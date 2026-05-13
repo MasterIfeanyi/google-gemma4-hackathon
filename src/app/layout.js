@@ -23,7 +23,7 @@ export const metadata = {
     siteName: "Buddy",
     images: [
       {
-        url: "https://ifeanyi-buddy.netlify.app/cache.png",
+        url: "https://ifeanyi-buddy.netlify.app/images/cache.png",
         width: 1200,
         height: 630,
         alt: "Buddy — Talk to anyone",
@@ -39,7 +39,7 @@ export const metadata = {
     title: "Buddy — Talk to anyone, powered by Gemma 4",
     description:
       "Have real conversations with the world's most iconic figures — leaders, legends, and visionaries — powered by Google's Gemma 4 AI model.",
-    images: ["https://ifeanyi-buddy.netlify.app/cache.png"],
+    images: ["https://ifeanyi-buddy.netlify.app/images/cache.png"],
   },
 };
 
